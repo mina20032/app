@@ -1,33 +1,87 @@
 {% extends "layout.html" %}
 
 {% block title %}لوحة التحكم – كنيسة السيدة العذراء{% endblock %}
-{% block header %}لوحة التحكم{% endblock %}
+{% block header %}لوحة التحكم الرئيسية{% endblock %}
 
 {% block content %}
-<div class="grid grid-cols-1 gap-6 md:grid-cols-4">
-  <div class="bg-white rounded-2xl shadow-md p-5 border border-sky-100">
-    <p class="text-xs font-medium text-sky-600 uppercase tracking-wide">إجمالي الأولاد</p>
-    <p class="mt-3 text-3xl font-bold text-slate-900">
-      {{ stats.total_children }}
-    </p>
+<div class="space-y-6">
+  <!-- Top control bar similar to example -->
+  <div class="bg-gradient-to-r from-sky-600 via-indigo-600 to-sky-700 rounded-2xl shadow-lg px-6 py-4 text-white">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div>
+        <h2 class="text-lg md:text-xl font-semibold">
+          برنامج مدارس الأحد – خدمة قديسي رابعة وخامسة وسادسة
+        </h2>
+        <p class="text-xs md:text-sm text-sky-100 mt-1">
+          لوحة التحكم لمتابعة الحضور، الافتقاد، والنقاط للأولاد.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-2 text-xs md:text-sm">
+        <a
+          href="/children"
+          class="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1.5 hover:bg-white/20"
+        >
+          👧🧒
+          <span>عرض الأولاد</span>
+        </a>
+        <a
+          href="/attendance"
+          class="inline-flex items-center gap-1 rounded-full bg-emerald-400 px-3 py-1.5 text-slate-900 font-semibold hover:bg-emerald-300"
+        >
+          ✅
+          <span>تسجيل حضور</span>
+        </a>
+        <a
+          href="/visits"
+          class="inline-flex items-center gap-1 rounded-full bg-pink-400 px-3 py-1.5 text-slate-900 font-semibold hover:bg-pink-300"
+        >
+          🏠
+          <span>تسجيل افتقاد</span>
+        </a>
+        <a
+          href="/points"
+          class="inline-flex items-center gap-1 rounded-full bg-amber-300 px-3 py-1.5 text-slate-900 font-semibold hover:bg-amber-200"
+        >
+          ⭐
+          <span>إضافة نقاط</span>
+        </a>
+        <a
+          href="/reports"
+          class="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1.5 hover:bg-white/20"
+        >
+          📄
+          <span>التقارير</span>
+        </a>
+      </div>
+    </div>
   </div>
-  <div class="bg-white rounded-2xl shadow-md p-5 border border-emerald-100">
-    <p class="text-xs font-medium text-emerald-600 uppercase tracking-wide">حضور اليوم</p>
-    <p class="mt-3 text-3xl font-bold text-slate-900">
-      {{ stats.todays_attendance }}
-    </p>
-  </div>
-  <div class="bg-white rounded-2xl shadow-md p-5 border border-pink-100">
-    <p class="text-xs font-medium text-pink-600 uppercase tracking-wide">إجمالي الافتقاد</p>
-    <p class="mt-3 text-3xl font-bold text-slate-900">
-      {{ stats.total_visits }}
-    </p>
-  </div>
-  <div class="bg-white rounded-2xl shadow-md p-5 border border-amber-100">
-    <p class="text-xs font-medium text-amber-600 uppercase tracking-wide">إجمالي النقاط</p>
-    <p class="mt-3 text-3xl font-bold text-slate-900">
-      {{ stats.total_points }}
-    </p>
+
+  <!-- Stats cards row -->
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-4">
+    <div class="bg-white rounded-2xl shadow-md p-4 border border-sky-100 flex flex-col justify-between">
+      <p class="text-xs font-medium text-sky-700 uppercase tracking-wide">إجمالي الأولاد</p>
+      <p class="mt-2 text-3xl font-extrabold text-slate-900">
+        {{ stats.total_children }}
+      </p>
+    </div>
+    <div class="bg-white rounded-2xl shadow-md p-4 border border-emerald-100 flex flex-col justify-between">
+      <p class="text-xs font-medium text-emerald-700 uppercase tracking-wide">حضور اليوم</p>
+      <p class="mt-2 text-3xl font-extrabold text-slate-900">
+        {{ stats.todays_attendance }}
+      </p>
+    </div>
+    <div class="bg-white rounded-2xl shadow-md p-4 border border-pink-100 flex flex-col justify-between">
+      <p class="text-xs font-medium text-pink-700 uppercase tracking-wide">إجمالي الافتقاد</p>
+      <p class="mt-2 text-3xl font-extrabold text-slate-900">
+        {{ stats.total_visits }}
+      </p>
+    </div>
+    <div class="bg-white rounded-2xl shadow-md p-4 border border-amber-100 flex flex-col justify-between">
+      <p class="text-xs font-medium text-amber-700 uppercase tracking-wide">إجمالي النقاط</p>
+      <p class="mt-2 text-3xl font-extrabold text-slate-900">
+        {{ stats.total_points }}
+      </p>
+    </div>
   </div>
 </div>
 
