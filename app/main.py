@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
@@ -40,7 +40,15 @@ def health_check():
     return {"status": "ok"}
 
 
-@app.get("/", tags=["ui"], response_class=HTMLResponse)
+@app.get("/", include_in_schema=False)
+async def root_redirect():
+    """
+    Redirect root to the main dashboard UI.
+    """
+    return RedirectResponse(url="/dashboard")
+
+
+@app.get("/home", tags=["ui"], response_class=HTMLResponse)
 async def home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
