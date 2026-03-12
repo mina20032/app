@@ -7,79 +7,28 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
-  <body class="h-full bg-gray-100">
-    <div class="min-h-full flex bg-gradient-to-br from-sky-50 via-indigo-50 to-slate-100">
-      <!-- Sidebar -->
-      <aside class="w-72 bg-slate-900 text-gray-100 flex flex-col shadow-xl">
-        <div class="px-6 py-5 border-b border-slate-800 bg-gradient-to-r from-sky-500 to-indigo-500">
-          <div class="flex items-center gap-3">
-            <div class="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center">
-              <span class="text-xl">✝️</span>
-            </div>
-            <div>
-              <h1 class="text-sm font-semibold leading-tight">
-                كنيسة السيدة العذراء مريم
-              </h1>
-              <p class="text-[11px] text-slate-100/80">
-                خدمة قديسي رابعة وخامسة وسادسة
-              </p>
-            </div>
+  <body class="h-full bg-gradient-to-br from-sky-50 via-indigo-50 to-slate-100">
+    <div class="min-h-full flex flex-col">
+      <!-- Header / Top bar only -->
+      <header class="bg-gradient-to-r from-sky-600 to-indigo-600 shadow text-white">
+        <div class="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8 flex items-center justify-between">
+          <div>
+            <h1 class="text-sm sm:text-base font-semibold">
+              كنيسة السيدة العذراء مريم – خدمة قديسي رابعة وخامسة وسادسة
+            </h1>
+            <p class="text-[11px] sm:text-xs text-sky-100 mt-0.5">
+              {% block header %}لوحة التحكم{% endblock %}
+            </p>
           </div>
         </div>
-        <nav class="flex-1 px-4 py-4 space-y-1 text-sm">
-          <a href="/dashboard" class="flex items-center gap-2 px-3 py-2 rounded-lg font-medium hover:bg-slate-800 hover:text-white transition">
-            <span class="text-sky-300">📊</span>
-            <span>Dashboard</span>
-          </a>
-          <a href="/children" class="flex items-center gap-2 px-3 py-2 rounded-lg font-medium hover:bg-slate-800 hover:text-white transition">
-            <span class="text-emerald-300">👧🧒</span>
-            <span>Children</span>
-          </a>
-          <a href="/attendance" class="flex items-center gap-2 px-3 py-2 rounded-lg font-medium hover:bg-slate-800 hover:text-white transition">
-            <span class="text-orange-300">✅</span>
-            <span>Attendance</span>
-          </a>
-          <a href="/visits" class="flex items-center gap-2 px-3 py-2 rounded-lg font-medium hover:bg-slate-800 hover:text-white transition">
-            <span class="text-pink-300">🏠</span>
-            <span>Visits</span>
-          </a>
-          <a href="/points" class="flex items-center gap-2 px-3 py-2 rounded-lg font-medium hover:bg-slate-800 hover:text-white transition">
-            <span class="text-yellow-300">⭐</span>
-            <span>Points</span>
-          </a>
-          <a href="/reports" class="flex items-center gap-2 px-3 py-2 rounded-lg font-medium hover:bg-slate-800 hover:text-white transition">
-            <span class="text-indigo-300">📄</span>
-            <span>Reports</span>
-          </a>
-        </nav>
-        {% if user %}
-        <div class="px-5 py-4 border-t border-slate-800 text-xs text-slate-300">
-          <p class="font-semibold">{{ user.name }}</p>
-          <p class="text-slate-400 mt-0.5">{{ user.role.value if user.role else user.role }}</p>
-        </div>
-        {% endif %}
-      </aside>
+      </header>
 
       <!-- Main content -->
-      <div class="flex-1 flex flex-col">
-        <header class="bg-white/80 backdrop-blur shadow-sm">
-          <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8 flex items-center justify-between">
-            <div>
-              <h2 class="text-lg font-semibold text-slate-900">
-                {% block header %}Dashboard{% endblock %}
-              </h2>
-              <p class="text-xs text-slate-500 mt-0.5">
-                إدارة خدمة مدارس الأحد و متابعات القديسين.
-              </p>
-            </div>
-          </div>
-        </header>
-        <main class="flex-1">
-          <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-            {% block content %}{% endblock %}
-          </div>
-        </main>
-      </div>
+      <main class="flex-1">
+        <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
+          {% block content %}{% endblock %}
+        </div>
+      </main>
     </div>
   </body>
 </html>
