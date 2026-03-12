@@ -12,3 +12,4 @@ Pillow
 openpyxl
 jinja2
 python-multipart
+pydantic[email]
