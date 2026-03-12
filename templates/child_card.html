@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>بطاقة الولد – كنيسة السيدة العذراء</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="min-h-screen bg-gray-100 flex items-center justify-center">
+    <div class="bg-white shadow-xl rounded-2xl p-6 w-80 text-center border border-slate-100">
+      <h1 class="text-sm font-semibold text-gray-900 mb-1">كنيسة السيدة العذراء مريم</h1>
+      <p class="text-[11px] text-slate-500 mb-3">خدمة قديسي رابعة وخامسة وسادسة</p>
+      <p class="text-base font-semibold text-gray-800 mb-1">{{ child.name }}</p>
+      <p class="text-xs text-gray-500 mb-4">
+        {{ child.stage.value }} - {{ child.grade or "" }}
+      </p>
+      <img
+        src="data:image/png;base64,{{ qr_code_base64 }}"
+        alt="QR Code"
+        class="mx-auto border border-gray-200 rounded-lg mb-3"
+      />
+      <p class="text-[10px] text-gray-400">Scan this code at check-in</p>
+      <button
+        onclick="window.print()"
+        class="mt-4 inline-flex items-center px-3 py-1.5 rounded-md bg-slate-900 text-white text-xs font-medium hover:bg-slate-800"
+      >
+        Print Card
+      </button>
+    </div>
+  </body>
+</html>
+

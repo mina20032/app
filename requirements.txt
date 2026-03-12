@@ -1,0 +1,14 @@
+pydantic-settings
+fastapi
+uvicorn[standard]
+SQLAlchemy
+psycopg2-binary
+python-dotenv
+python-jose[cryptography]
+passlib[bcrypt]
+alembic
+qrcode
+Pillow
+openpyxl
+jinja2
+python-multipart

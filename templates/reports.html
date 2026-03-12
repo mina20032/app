@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}التقارير – خدمة قديسي رابعة وخامسة وسادسة{% endblock %}
+{% block header %}التقارير والإحصائيات{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+  <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-5">
+    <h3 class="text-base font-semibold text-slate-900 mb-2">ملخص سريع</h3>
+    <p class="text-xs text-slate-500 mb-4">نظرة سريعة على الخدمة.</p>
+    <dl class="grid grid-cols-2 gap-3 text-sm">
+      <div class="bg-sky-50 rounded-xl p-3">
+        <dt class="text-xs text-sky-700">إجمالي الأولاد</dt>
+        <dd class="text-xl font-bold text-slate-900 mt-1">{{ stats.total_children }}</dd>
+      </div>
+      <div class="bg-emerald-50 rounded-xl p-3">
+        <dt class="text-xs text-emerald-700">حضور اليوم</dt>
+        <dd class="text-xl font-bold text-slate-900 mt-1">{{ stats.todays_attendance }}</dd>
+      </div>
+      <div class="bg-pink-50 rounded-xl p-3">
+        <dt class="text-xs text-pink-700">إجمالي الافتقاد</dt>
+        <dd class="text-xl font-bold text-slate-900 mt-1">{{ stats.total_visits }}</dd>
+      </div>
+      <div class="bg-amber-50 rounded-xl p-3">
+        <dt class="text-xs text-amber-700">إجمالي النقاط</dt>
+        <dd class="text-xl font-bold text-slate-900 mt-1">{{ stats.total_points }}</dd>
+      </div>
+    </dl>
+  </div>
+
+  <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-5">
+    <h3 class="text-base font-semibold text-slate-900 mb-2">تصدير التقارير</h3>
+    <p class="text-xs text-slate-500 mb-4">قريبًا: تصدير تقارير الحضور إلى Excel و Charts تفصيلية.</p>
+    <div class="space-y-3">
+      <button
+        type="button"
+        disabled
+        class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-slate-200 text-slate-500 text-sm font-semibold cursor-not-allowed"
+      >
+        <span>📊</span>
+        <span>تصدير تقرير الحضور (Excel)</span>
+      </button>
+      <button
+        type="button"
+        disabled
+        class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-slate-200 text-slate-500 text-sm font-semibold cursor-not-allowed"
+      >
+        <span>📈</span>
+        <span>إحصائيات متقدمة (قريبًا)</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+

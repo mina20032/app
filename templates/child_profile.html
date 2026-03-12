@@ -1,0 +1,165 @@
+{% extends "layout.html" %}
+
+{% block title %}ملف الولد – خدمة قديسي رابعة وخامسة وسادسة{% endblock %}
+{% block header %}ملف الولد{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <!-- Left column: personal info + QR -->
+  <div class="space-y-4">
+    <div class="bg-white shadow rounded-xl p-4">
+      <h3 class="text-base font-semibold text-gray-900 mb-2">Personal Info</h3>
+      <dl class="space-y-1 text-sm text-gray-700">
+        <div class="flex justify-between">
+          <dt class="font-medium">Name</dt>
+          <dd>{{ child.name }}</dd>
+        </div>
+        <div class="flex justify-between">
+          <dt class="font-medium">Stage</dt>
+          <dd>{{ child.stage.value }}</dd>
+        </div>
+        <div class="flex justify-between">
+          <dt class="font-medium">Grade</dt>
+          <dd>{{ child.grade or "-" }}</dd>
+        </div>
+        <div class="flex justify-between">
+          <dt class="font-medium">Phone</dt>
+          <dd>{{ child.phone or "-" }}</dd>
+        </div>
+        <div class="flex justify-between">
+          <dt class="font-medium">Father Phone</dt>
+          <dd>{{ child.father_phone or "-" }}</dd>
+        </div>
+        <div class="flex justify-between">
+          <dt class="font-medium">Mother Phone</dt>
+          <dd>{{ child.mother_phone or "-" }}</dd>
+        </div>
+        <div class="flex justify-between">
+          <dt class="font-medium">Confession Number</dt>
+          <dd>{{ child.confession_number or "-" }}</dd>
+        </div>
+        <div class="flex justify-between">
+          <dt class="font-medium">Address</dt>
+          <dd class="text-right">{{ child.address or "-" }}</dd>
+        </div>
+        <div class="flex justify-between">
+          <dt class="font-medium">School</dt>
+          <dd>{{ child.school or "-" }}</dd>
+        </div>
+        <div class="flex justify-between">
+          <dt class="font-medium">Total Points</dt>
+          <dd class="font-semibold text-slate-900">{{ total_points }}</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="bg-white shadow rounded-xl p-4 flex flex-col items-center">
+      <h3 class="text-base font-semibold text-gray-900 mb-3">QR Code</h3>
+      <img
+        src="data:image/png;base64,{{ qr_code_base64 }}"
+        alt="QR Code"
+        class="border border-gray-200 rounded-lg"
+      />
+      <p class="mt-2 text-xs text-gray-500">Scan to check-in this child.</p>
+      <a
+        href="/children/{{ child.id }}/card"
+        target="_blank"
+        class="mt-3 inline-flex items-center px-3 py-1.5 rounded-md bg-slate-900 text-white text-xs font-medium hover:bg-slate-800"
+      >
+        Open QR Card
+      </a>
+      <a
+        href="/children/{{ child.id }}/qr-download"
+        class="mt-2 inline-flex items-center px-3 py-1.5 rounded-md bg-white text-slate-900 border border-slate-200 text-xs font-medium hover:bg-slate-50"
+      >
+        Download QR Image
+      </a>
+    </div>
+  </div>
+
+  <!-- Right column: history tabs -->
+  <div class="lg:col-span-2 space-y-6">
+    <div>
+      <h3 class="text-base font-semibold text-gray-900 mb-2">Attendance History</h3>
+      <div class="bg-white shadow rounded-xl overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200 text-sm">
+            {% for a in attendances %}
+            <tr>
+              <td class="px-4 py-2">{{ a.date }}</td>
+              <td class="px-4 py-2">{{ a.type.value }}</td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="2" class="px-4 py-3 text-center text-gray-500">No attendance records.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="text-base font-semibold text-gray-900 mb-2">Visits History</h3>
+      <div class="bg-white shadow rounded-xl overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Notes</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200 text-sm">
+            {% for v in visits %}
+            <tr>
+              <td class="px-4 py-2">{{ v.date }}</td>
+              <td class="px-4 py-2">{{ v.notes or "-" }}</td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="2" class="px-4 py-3 text-center text-gray-500">No visits recorded.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="text-base font-semibold text-gray-900 mb-2">Points History</h3>
+      <div class="bg-white shadow rounded-xl overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Points</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Reason</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200 text-sm">
+            {% for p in points %}
+            <tr>
+              <td class="px-4 py-2">{{ p.date }}</td>
+              <td class="px-4 py-2 font-semibold text-slate-900">{{ p.points }}</td>
+              <td class="px-4 py-2">{{ p.reason or "-" }}</td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="3" class="px-4 py-3 text-center text-gray-500">No points recorded.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+

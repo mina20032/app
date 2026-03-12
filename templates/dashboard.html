@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}لوحة التحكم – كنيسة السيدة العذراء{% endblock %}
+{% block header %}لوحة التحكم{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 gap-6 md:grid-cols-4">
+  <div class="bg-white rounded-2xl shadow-md p-5 border border-sky-100">
+    <p class="text-xs font-medium text-sky-600 uppercase tracking-wide">إجمالي الأولاد</p>
+    <p class="mt-3 text-3xl font-bold text-slate-900">
+      {{ stats.total_children }}
+    </p>
+  </div>
+  <div class="bg-white rounded-2xl shadow-md p-5 border border-emerald-100">
+    <p class="text-xs font-medium text-emerald-600 uppercase tracking-wide">حضور اليوم</p>
+    <p class="mt-3 text-3xl font-bold text-slate-900">
+      {{ stats.todays_attendance }}
+    </p>
+  </div>
+  <div class="bg-white rounded-2xl shadow-md p-5 border border-pink-100">
+    <p class="text-xs font-medium text-pink-600 uppercase tracking-wide">إجمالي الافتقاد</p>
+    <p class="mt-3 text-3xl font-bold text-slate-900">
+      {{ stats.total_visits }}
+    </p>
+  </div>
+  <div class="bg-white rounded-2xl shadow-md p-5 border border-amber-100">
+    <p class="text-xs font-medium text-amber-600 uppercase tracking-wide">إجمالي النقاط</p>
+    <p class="mt-3 text-3xl font-bold text-slate-900">
+      {{ stats.total_points }}
+    </p>
+  </div>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,165 @@
+{% extends "layout.html" %}
+
+{% block title %}إضافة ولد جديد – خدمة قديسي رابعة وخامسة وسادسة{% endblock %}
+{% block header %}إضافة ولد جديد{% endblock %}
+
+{% block content %}
+<div x-data="stageGradeForm()" class="max-w-2xl">
+  <form method="post" class="space-y-4 bg-white shadow-lg rounded-2xl p-6 border border-slate-100">
+    <div>
+      <label class="block text-sm font-medium text-gray-700">اسم الولد</label>
+      <input
+        type="text"
+        name="name"
+        required
+        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-slate-900 focus:ring-slate-900 text-sm"
+      />
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+      <label class="block text-sm font-medium text-gray-700">العمر</label>
+        <input
+          type="number"
+          name="age"
+          min="0"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-slate-900 focus:ring-slate-900 text-sm"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">المرحلة</label>
+        <select
+          name="stage"
+          x-model="stage"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-slate-900 focus:ring-slate-900 text-sm"
+          required
+        >
+          <option value="">Select stage</option>
+          <option value="PRIMARY">Primary</option>
+          <option value="PREP">Prep</option>
+          <option value="SECONDARY">Secondary</option>
+        </select>
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">الصف</label>
+      <select
+        name="grade"
+        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-slate-900 focus:ring-slate-900 text-sm"
+        required
+      >
+        <template x-for="g in grades" :key="g">
+          <option x-text="g"></option>
+        </template>
+      </select>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">تليفون الولد</label>
+        <input
+          type="text"
+          name="phone"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-slate-900 focus:ring-slate-900 text-sm"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 flex items-center gap-1">
+          <span>تليفون الأب</span>
+          <span class="text-xs">👨‍👧</span>
+        </label>
+        <input
+          type="text"
+          name="father_phone"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-slate-900 focus:ring-slate-900 text-sm"
+        />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">تليفون الأم</label>
+        <input
+          type="text"
+          name="mother_phone"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-slate-900 focus:ring-slate-900 text-sm"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">رقم الاعتراف</label>
+        <input
+          type="text"
+          name="confession_number"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-slate-900 focus:ring-slate-900 text-sm"
+        />
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">العنوان</label>
+      <input
+        type="text"
+        name="address"
+        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-slate-900 focus:ring-slate-900 text-sm"
+      />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">المدرسة</label>
+      <input
+        type="text"
+        name="school"
+        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-slate-900 focus:ring-slate-900 text-sm"
+      />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">ملاحظات</label>
+      <textarea
+        name="notes"
+        rows="3"
+        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-slate-900 focus:ring-slate-900 text-sm"
+      ></textarea>
+    </div>
+
+    <div class="pt-4 flex justify-end">
+      <a
+        href="/children"
+        class="mr-3 inline-flex items-center px-4 py-2 rounded-full border border-slate-200 text-sm font-medium text-slate-700 bg-white hover:bg-slate-50"
+      >
+        إلغاء
+      </a>
+      <button
+        type="submit"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500 to-sky-500 text-white text-sm font-semibold shadow hover:from-emerald-600 hover:to-sky-600"
+      >
+        <span>💾</span>
+        <span>حفظ الولد</span>
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+  function stageGradeForm() {
+    return {
+      stage: '',
+      get grades() {
+        if (this.stage === 'PRIMARY') {
+          return ['1st Primary', '2nd Primary', '3rd Primary', '4th Primary', '5th Primary', '6th Primary'];
+        }
+        if (this.stage === 'PREP') {
+          return ['1st Prep', '2nd Prep', '3rd Prep'];
+        }
+        if (this.stage === 'SECONDARY') {
+          return ['1st Secondary', '2nd Secondary', '3rd Secondary'];
+        }
+        return [];
+      },
+    };
+  }
+</script>
+
+{% endblock %}
+

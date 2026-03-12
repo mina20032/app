@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+
+{% block title %}الافتقاد – خدمة قديسي رابعة وخامسة وسادسة{% endblock %}
+{% block header %}الافتقاد{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <div class="lg:col-span-1">
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-5">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-base font-semibold text-slate-900">تسجيل افتقاد</h3>
+        <a
+          href="/scanner?mode=visits"
+          class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-500 to-sky-500 text-white text-xs font-semibold shadow hover:from-indigo-600 hover:to-sky-600"
+        >
+          <span>📷</span>
+          <span>مسح QR</span>
+        </a>
+      </div>
+      <form method="post" action="/visits" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">اختر الولد</label>
+          <select
+            name="child_id"
+            required
+            class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 text-sm"
+          >
+            <option value="">اختر الولد...</option>
+            {% for child in children %}
+            <option value="{{ child.id }}" {% if selected_child_id and selected_child_id == child.id %}selected{% endif %}>
+              {{ child.name }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">تاريخ الافتقاد</label>
+          <input
+            type="date"
+            name="visit_date"
+            required
+            value="{{ (now() if false) }}"
+            class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 text-sm"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">ملاحظات</label>
+          <textarea
+            name="notes"
+            rows="3"
+            class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 text-sm"
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-gradient-to-r from-pink-500 to-sky-500 text-white text-sm font-semibold shadow hover:from-pink-600 hover:to-sky-600"
+        >
+          <span>🏠</span>
+          <span>حفظ الافتقاد</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="lg:col-span-2">
+    <h3 class="text-base font-semibold text-slate-900 mb-3">أحدث الافتقادات</h3>
+    <div class="bg-white rounded-2xl shadow-md border border-slate-100 overflow-hidden">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50 text-xs text-gray-500 uppercase">
+          <tr>
+            <th class="px-4 py-2 text-left">الولد</th>
+            <th class="px-4 py-2 text-left">التاريخ</th>
+            <th class="px-4 py-2 text-left">ملاحظات</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200 text-sm">
+          {% for v in visits %}
+          <tr>
+            <td class="px-4 py-2">{{ v.child.name if v.child else v.child_id }}</td>
+            <td class="px-4 py-2">{{ v.date }}</td>
+            <td class="px-4 py-2">{{ v.notes or "-" }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="3" class="px-4 py-4 text-center text-slate-500 text-sm">
+              لا يوجد افتقادات مسجّلة حتى الآن.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
